@@ -16,7 +16,6 @@ package nerdex.io;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GroupCall {
@@ -27,7 +26,7 @@ public class GroupCall {
     protected GroupCall(String topic, String... names){
         this.topic = topic;
 
-        for(String users : names)
+        for(String user : names) users.add(new User(user));
     }
 
     public ArrayList<User> getUsers(){
@@ -38,6 +37,14 @@ public class GroupCall {
         for(User user : users) uri += user.getName() + ";";
         uri = uri.substring(0, uri.indexOf(";"));
         uri += "?call&video=" + call.isVideo() + "&topic=" + topic.replaceAll(" ", "%20");
-        
+        API.openURI(uri);
+    }
+
+    public void chat(){
+        String uri = "";
+        for(User user : users) uri += user.getName() + ";";
+        uri = uri.substring(0, uri.lastIndexOf(";"));
+        uri += "?chat&topic=" + topic.replaceAll(" ", "%20");
+        API.openURI(uri);
     }
 }
