@@ -28,7 +28,11 @@ public class User {
         return name;
     }
     public void call(CallTypeEnum type){
+        API.openURI(name + "?call&video=" + type.isVideo());
+    }
 
+    public void chat(){
+        API.openURI(name + "?chat");
     }
 
 }
